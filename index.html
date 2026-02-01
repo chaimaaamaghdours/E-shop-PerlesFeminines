@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💎 PerlesFeminines - E-shop Mode Féminine</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            line-height: 1.6;
+            background: #f8f9fa;
+        }
+
+        /* Top Banner */
+        .top-banner {
+            background: linear-gradient(135deg, #c1502e 0%, #d4a574 100%);
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .top-banner span {
+            margin: 0 15px;
+        }
+
+        /* Header */
+        header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #c1502e;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .search-bar {
+            flex: 1;
+            max-width: 500px;
+            margin: 0 40px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 12px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 30px;
+            font-size: 15px;
+            transition: all 0.3s;
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: #c1502e;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 25px;
+            font-size: 22px;
+        }
+
+        .header-icons a {
+            color: #333;
+            text-decoration: none;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .header-icons a:hover {
+            color: #c1502e;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #c1502e;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Navigation */
+        nav {
+            background: #2b5876;
+            color: white;
+        }
+
+        nav ul {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            list-style: none;
+            display: flex;
+            gap: 35px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #d4a574;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1400px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 30px;
+        }
+
+        /* Sidebar Filters */
+        .sidebar {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            height: fit-content;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .filter-section {
+            margin-bottom: 30px;
+        }
+
+        .filter-section h3 {
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: #c1502e;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .filter-option {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .filter-option:hover {
+            color: #c1502e;
+        }
+
+        .filter-option span:last-child {
+            color: #999;
+            font-size: 14px;
+        }
+
+        .filter-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            cursor: pointer;
+        }
+
+        .filter-checkbox input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        /* Products Section */
+        .products-section {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .products-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .products-count {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .sort-by {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sort-by select {
+            padding: 10px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            background: white;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: 1px solid #f0f0f0;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 350px;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: #c1502e;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .badge.sale {
+            background: #e74c3c;
+        }
+
+        .badge.new {
+            background: #27ae60;
+        }
+
+        .wishlist-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .wishlist-btn:hover {
+            background: #c1502e;
+            color: white;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-category {
+            font-size: 12px;
+            color: #999;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .product-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #333;
+            min-height: 45px;
+        }
+
+        .product-price {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .price-current {
+            font-size: 22px;
+            font-weight: bold;
+            color: #c1502e;
+        }
+
+        .price-old {
+            font-size: 16px;
+            color: #999;
+            text-decoration: line-through;
+        }
+
+        .product-colors {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .color-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid #e0e0e0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .color-dot:hover {
+            border-color: #c1502e;
+            transform: scale(1.1);
+        }
+
+        .add-to-cart-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #c1502e 0%, #8b3a1e 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .add-to-cart-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(193, 80, 46, 0.4);
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 40px;
+        }
+
+        .pagination button {
+            padding: 10px 18px;
+            border: 2px solid #e0e0e0;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .pagination button:hover,
+        .pagination button.active {
+            background: #c1502e;
+            color: white;
+            border-color: #c1502e;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #2b5876 0%, #1a3a4d 100%);
+            color: white;
+            padding: 50px 20px 20px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: #bdc3c7;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #d4a574;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #bdc3c7;
+        }
+
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .search-bar {
+                display: none;
+            }
+
+            nav ul {
+                gap: 20px;
+                font-size: 14px;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="top-banner">
+        <span>✨ Livraison offerte à partir de 500 DHS</span>
+        <span>📦 Retour gratuit pour toute commande</span>
+        <span>💰 Paiement à la livraison disponible</span>
+    </div>
+
+    <header>
+        <div class="header-main">
+            <div class="logo">💎 PerlesFeminines</div>
+            
+            <div class="search-bar">
+                <input type="text" placeholder="Rechercher des produits...">
+            </div>
+
+            <div class="header-icons">
+                <a href="#" title="Mon compte">👤</a>
+                <a href="#" title="Favoris">❤️</a>
+                <a href="#" title="Panier">
+                    🛒
+                    <span class="cart-count">3</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#accueil">Accueil</a></li>
+            <li><a href="#nouveautes">Nouveautés</a></li>
+            <li><a href="#foulards">Foulards Soie</a></li>
+            <li><a href="#robes">Robes</a></li>
+            <li><a href="#blouses">Blouses & Chemises</a></li>
+            <li><a href="#pantalons">Pantalons</a></li>
+            <li><a href="#accessoires">Accessoires</a></li>
+            <li><a href="#soldes">Soldes -50%</a></li>
+        </ul>
+    </nav>
+
+    <div class="main-content">
+        <!-- Sidebar Filters -->
+        <aside class="sidebar">
+            <div class="filter-section">
+                <h3>Catégories</h3>
+                <div class="filter-option">
+                    <span>Foulards Soie</span>
+                    <span>142</span>
+                </div>
+                <div class="filter-option">
+                    <span>Robes</span>
+                    <span>168</span>
+                </div>
+                <div class="filter-option">
+                    <span>Blouses & Chemises</span>
+                    <span>225</span>
+                </div>
+                <div class="filter-option">
+                    <span>Pantalons</span>
+                    <span>301</span>
+                </div>
+                <div class="filter-option">
+                    <span>Tuniques</span>
+                    <span>83</span>
+                </div>
+                <div class="filter-option">
+                    <span>Accessoires</span>
+                    <span>68</span>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h3>Taille</h3>
+                <div class="filter-checkbox">
+                    <input type="checkbox" id="xs">
+                    <label for="xs">XS (51)</label>
+                </div>
+                <div class="filter-checkbox">
+                    <input type="checkbox" id="s">
+                    <label for="s">S (1157)</label>
+                </div>
+                <div class="filter-checkbox">
+                    <input type="checkbox" id="m">
+                    <label for="m">M (913)</label>
+                </div>
+                <div class="filter-checkbox">
+                    <input type="checkbox" id="l">
+                    <label for="l">L (797)</label>
+                </div>
+                <div class="filter-checkbox">
+                    <input type="checkbox" id="xl">
+                    <label for="xl">XL (778)</label>
+                </div>
+                <div class="filter-checkbox">
+                    <input type="checkbox" id="xxl">
+                    <label for="xxl">XXL (395)</label>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h3>Prix</h3>
+                <div class="filter-checkbox">
+                    <input type="checkbox" id="p1">
+                    <label for="p1">Moins de 100 DHS</label>
+                </div>
+                <div class="filter-checkbox">
+                    <input type="checkbox" id="p2">
+                    <label for="p2">100 - 200 DHS</label>
+                </div>
+                <div class="filter-checkbox">
+                    <input type="checkbox" id="p3">
+                    <label for="p3">200 - 300 DHS</label>
+                </div>
+                <div class="filter-checkbox">
+                    <input type="checkbox" id="p4">
+                    <label for="p4">300 DHS et plus</label>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h3>Couleur</h3>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <div class="color-dot" style="background: #000"></div>
+                    <div class="color-dot" style="background: #fff; border-color: #ccc"></div>
+                    <div class="color-dot" style="background: #c1502e"></div>
+                    <div class="color-dot" style="background: #2b5876"></div>
+                    <div class="color-dot" style="background: #d4a574"></div>
+                    <div class="color-dot" style="background: #e74c3c"></div>
+                    <div class="color-dot" style="background: #27ae60"></div>
+                    <div class="color-dot" style="background: #f39c12"></div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Products Grid -->
+        <main class="products-section">
+            <div class="products-header">
+                <div class="products-count">1548 Articles</div>
+                <div class="sort-by">
+                    <label>Trier par:</label>
+                    <select>
+                        <option>Position</option>
+                        <option>Prix croissant</option>
+                        <option>Prix décroissant</option>
+                        <option>Nouveautés</option>
+                        <option>Meilleures ventes</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="products-grid">
+                <!-- Product 1 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        🧣
+                        <span class="badge new">Nouveau</span>
+                        <div class="wishlist-btn">♡</div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Foulards</div>
+                        <div class="product-title">Foulard Soie Premium Floral</div>
+                        <div class="product-price">
+                            <span class="price-current">249 DHS</span>
+                            <span class="price-old">350 DHS</span>
+                        </div>
+                        <div class="product-colors">
+                            <div class="color-dot" style="background: #c1502e"></div>
+                            <div class="color-dot" style="background: #2b5876"></div>
+                            <div class="color-dot" style="background: #d4a574"></div>
+                        </div>
+                        <button class="add-to-cart-btn">Ajouter au panier</button>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        👗
+                        <span class="badge sale">-40%</span>
+                        <div class="wishlist-btn">♡</div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Robes</div>
+                        <div class="product-title">Robe Élégante Col V</div>
+                        <div class="product-price">
+                            <span class="price-current">329 DHS</span>
+                            <span class="price-old">549 DHS</span>
+                        </div>
+                        <div class="product-colors">
+                            <div class="color-dot" style="background: #000"></div>
+                            <div class="color-dot" style="background: #c1502e"></div>
+                        </div>
+                        <button class="add-to-cart-btn">Ajouter au panier</button>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        👚
+                        <div class="wishlist-btn">♡</div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Blouses</div>
+                        <div class="product-title">Blouse Soie Col Chemise</div>
+                        <div class="product-price">
+                            <span class="price-current">279 DHS</span>
+                        </div>
+                        <div class="product-colors">
+                            <div class="color-dot" style="background: #fff; border-color: #ccc"></div>
+                            <div class="color-dot" style="background: #d4a574"></div>
+                            <div class="color-dot" style="background: #000"></div>
+                        </div>
+                        <button class="add-to-cart-btn">Ajouter au panier</button>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        👖
+                        <span class="badge">Tendance</span>
+                        <div class="wishlist-btn">♡</div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Pantalons</div>
+                        <div class="product-title">Pantalon Large Taille Haute</div>
+                        <div class="product-price">
+                            <span class="price-current">349 DHS</span>
+                        </div>
+                        <div class="product-colors">
+                            <div class="color-dot" style="background: #000"></div>
+                            <div class="color-dot" style="background: #2b5876"></div>
+                        </div>
+                        <button class="add-to-cart-btn">Ajouter au panier</button>
+                    </div>
+                </div>
+
+                <!-- Product 5 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        🧣
+                        <span class="badge sale">-30%</span>
+                        <div class="wishlist-btn">♡</div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Foulards</div>
+                        <div class="product-title">Foulard Soie Géométrique</div>
+                        <div class="product-price">
+                            <span class="price-current">189 DHS</span>
+                            <span class="price-old">270 DHS</span>
+                        </div>
+                        <div class="product-colors">
+                            <div class="color-dot" style="background: #e74c3c"></div>
+                            <div class="color-dot" style="background: #27ae60"></div>
+                        </div>
+                        <button class="add-to-cart-btn">Ajouter au panier</button>
+                    </div>
+                </div>
+
+                <!-- Product 6 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        👗
+                        <span class="badge new">Nouveau</span>
+                        <div class="wishlist-btn">♡</div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Robes</div>
+                        <div class="product-title">Robe Longue Fluide Imprimée</div>
+                        <div class="product-price">
+                            <span class="price-current">449 DHS</span>
+                        </div>
+                        <div class="product-colors">
+                            <div class="color-dot" style="background: #d4a574"></div>
+                            <div class="color-dot" style="background: #c1502e"></div>
+                        </div>
+                        <button class="add-to-cart-btn">Ajouter au panier</button>
+                    </div>
+                </div>
+
+                <!-- Product 7 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        🧥
+                        <div class="wishlist-btn">♡</div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Vestes</div>
+                        <div class="product-title">Blazer Élégant Ajusté</div>
+                        <div class="product-price">
+                            <span class="price-current">529 DHS</span>
+                        </div>
+                        <div class="product-colors">
+                            <div class="color-dot" style="background: #000"></div>
+                            <div class="color-dot" style="background: #2b5876"></div>
+                        </div>
+                        <button class="add-to-cart-btn">Ajouter au panier</button>
+                    </div>
+                </div>
+
+                <!-- Product 8 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        👜
+                        <span class="badge">Exclusif</span>
+                        <div class="wishlist-btn">♡</div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Accessoires</div>
+                        <div class="product-title">Sac Cuir Véritable Luxe</div>
+                        <div class="product-price">
+                            <span class="price-current">649 DHS</span>
+                        </div>
+                        <div class="product-colors">
+                            <div class="color-dot" style="background: #000"></div>
+                            <div class="color-dot" style="background: #8b4513"></div>
+                        </div>
+                        <button class="add-to-cart-btn">Ajouter au panier</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pagination">
+                <button class="active">1</button>
+                <button>2</button>
+                <button>3</button>
+                <button>4</button>
+                <button>5</button>
+                <button>...</button>
+                <button>65</button>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>💎 PerlesFeminines</h3>
+                <p>Votre destination mode pour les femmes élégantes. Découvrez nos collections de foulards en soie et vêtements raffinés.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Boutique</h3>
+                <ul>
+                    <li><a href="#">Nouveautés</a></li>
+                    <li><a href="#">Foulards Soie</a></li>
+                    <li><a href="#">Robes</a></li>
+                    <li><a href="#">Accessoires</a></li>
+                    <li><a href="#">Soldes</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Service Client</h3>
+                <ul>
+                    <li><a href="#">Contactez-nous</a></li>
+                    <li><a href="#">Livraison & Retours</a></li>
+                    <li><a href="#">Guide des tailles</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Conditions générales</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Suivez-nous</h3>
+                <ul>
+                    <li><a href="https://www.instagram.com/perlesfeminines/">📸 Instagram</a></li>
+                    <li><a href="#">📘 Facebook</a></li>
+                    <li><a href="#">📌 Pinterest</a></li>
+                    <li><a href="#">✉️ Newsletter</a></li>
+                </ul>
+                <p style="margin-top: 20px;">
+                    📞 +212 XXX-XXXXXX<br>
+                    📧 contact@perlesfeminines.com
+                </p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 PerlesFeminines. Tous droits réservés. | Paiement sécurisé | Livraison rapide</p>
+        </div>
+    </footer>
+</body>
+</html>
